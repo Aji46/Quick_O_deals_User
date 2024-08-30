@@ -20,47 +20,48 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+   //  final authProvider = Provider.of<logProvider>(context);
+
     return Consumer<logProvider>(
-      builder: (context, authProvider, child) {
-        return Scaffold(
-          body: _getPageForIndex(_currentIndex, authProvider),
-          bottomNavigationBar: DotCurvedBottomNav(
-            scrollController: ScrollController(),
-            hideOnScroll: true,
-            indicatorColor: Colors.blue,
-            backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-            animationDuration: const Duration(milliseconds: 300),
-            animationCurve: Curves.ease,
-            selectedIndex: _currentIndex,
-            indicatorSize: 5,
-            borderRadius: 25,
-            height: 70,
-            onTap: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-            items: [
-              Icon(
-                Icons.home,
-                color: _currentIndex == 0 ? Colors.blue : const Color.fromARGB(255, 136, 136, 136),
-              ),
-              Icon(
-                Icons.chat,
-                color: _currentIndex == 1 ? Colors.blue : const Color.fromARGB(255, 161, 161, 161),
-              ),
-              Icon(
-                Icons.favorite_border,
-                color: _currentIndex == 2 ? Colors.blue : const Color.fromARGB(255, 143, 143, 143),
-              ),
-              Icon(
-                Icons.person,
-                color: _currentIndex == 3 ? Colors.blue : const Color.fromARGB(255, 132, 132, 132),
-              ),
-            ],
-          ),
-        );
-      },
+      builder: (context, value, child) => 
+       Scaffold(
+        body: _getPageForIndex(_currentIndex, value),
+      bottomNavigationBar: DotCurvedBottomNav(
+          scrollController: ScrollController(),
+          hideOnScroll: true,
+          indicatorColor: Colors.blue,
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+          animationDuration: const Duration(milliseconds: 300),
+          animationCurve: Curves.ease,
+          selectedIndex: _currentIndex,
+          indicatorSize: 5,
+          borderRadius: 25,
+          height: 70,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          items: [
+            Icon(
+              Icons.home,
+              color: _currentIndex == 0 ? Colors.blue : const Color.fromARGB(255, 136, 136, 136),
+            ),
+            Icon(
+              Icons.chat,
+              color: _currentIndex == 1 ? Colors.blue : const Color.fromARGB(255, 161, 161, 161),
+            ),
+            Icon(
+              Icons.favorite_border,
+              color: _currentIndex == 2 ? Colors.blue : const Color.fromARGB(255, 143, 143, 143),
+            ),
+            Icon(
+              Icons.person,
+              color: _currentIndex == 3 ? Colors.blue : const Color.fromARGB(255, 132, 132, 132),
+            ),
+          ],
+        ),
+      ),
     );
   }
 

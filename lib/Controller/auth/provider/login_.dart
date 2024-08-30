@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class logProvider extends ChangeNotifier {
+class logProvider with ChangeNotifier {
   bool _isLoggedIn = false;
 
   bool get isLoggedIn => _isLoggedIn;
 
-  void login() {
-    _isLoggedIn = true;
+   logProvider() {
+    _loadLoginStatus();
+  }
+
+  Future<void> _loadLoginStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+    print('Login Status Loaded: $_isLoggedIn');
     notifyListeners();
   }
 
-  void logout() {
-    _isLoggedIn = false;
+  Future<void> setLoginStatus(bool status) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _isLoggedIn = status;
+    await prefs.setBool('isLoggedIn', status);
+     print('Login Status Updated: $_isLoggedIn');
     notifyListeners();
   }
 }

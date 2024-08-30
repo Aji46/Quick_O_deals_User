@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_o_deals/Controller/auth/provider/email_auth.dart';
 import 'package:quick_o_deals/Controller/auth/provider/loding_provider.dart';
-import 'package:quick_o_deals/View/Pages/user_profile/user_profile.dart';
+import 'package:quick_o_deals/Controller/auth/provider/login_.dart';
+import 'package:quick_o_deals/View/widget/bottom_nav_bar/bottom%20_navigation_bar.dart';
 import 'package:quick_o_deals/View/widget/custom_bottons/custom_button.dart';
 import 'package:quick_o_deals/View/widget/textformfiled/coustom_text.dart';
 import 'package:quick_o_deals/View/widget/validation/validation.dart';
@@ -21,6 +22,8 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final pref =Provider.of<logProvider>(context);
     return Consumer<LoadingProvider>(
       builder: (context, loadingProvider, child) {
         return Stack(
@@ -61,11 +64,13 @@ class LoginForm extends StatelessWidget {
 
                               if (authProvider.user != null) {
                                 SharedPreferences prefs = await SharedPreferences.getInstance();
-                                await prefs.setString('userEmail', emailController.text);
-                                await prefs.setBool('isLoggedIn', true);
+                                // await prefs.setString('userEmail', emailController.text);
+                                // await prefs.setBool('isLoggedIn', true);
+                                pref.setLoginStatus(true);
+
                                 Navigator.pushReplacement(
                                   context,
-                                  MaterialPageRoute(builder: (context) => UserProfile()),
+                                  MaterialPageRoute(builder: (context) => const MyHomePage()),
                                 );
                               }
                             } catch (e) {
