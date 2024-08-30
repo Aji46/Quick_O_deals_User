@@ -1,5 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleSignInProvider with ChangeNotifier {
@@ -20,11 +21,30 @@ class GoogleSignInProvider with ChangeNotifier {
 
       final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
       _user = userCredential.user;
+      await _saveUserDataToFirestore();
       notifyListeners();
+      
+ 
+
       return _user != null;
+
     } catch (e) {
       print('Error signing in with Google: $e');
       return false;
+    }
+  }
+
+  Future<void> _saveUserDataToFirestore() async {
+    if (_user != null) {
+      final userRef = FirebaseFirestore.instance.collection('users').doc(_user!.uid);
+
+      // Assuming you want to store user's profile details
+      await userRef.set({
+        'email': _user!.email,
+        'phoneNumber': _user!.phoneNumber ?? '',
+        'profilePicture': _user!.photoURL ?? '',
+        'username': _user!.displayName ?? '',
+      }, SetOptions(merge: true));
     }
   }
 
