@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GoogleSignInProvider with ChangeNotifier {
   User? _user;
@@ -22,12 +23,15 @@ class GoogleSignInProvider with ChangeNotifier {
       final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
       _user = userCredential.user;
       await _saveUserDataToFirestore();
+
+      // Update SharedPreferences
+      if (_user != null) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('isLoggedIn', true);
+      }
+
       notifyListeners();
-      
- 
-
       return _user != null;
-
     } catch (e) {
       print('Error signing in with Google: $e');
       return false;
@@ -38,7 +42,6 @@ class GoogleSignInProvider with ChangeNotifier {
     if (_user != null) {
       final userRef = FirebaseFirestore.instance.collection('users').doc(_user!.uid);
 
-      // Assuming you want to store user's profile details
       await userRef.set({
         'email': _user!.email,
         'phoneNumber': _user!.phoneNumber ?? '',
@@ -51,6 +54,11 @@ class GoogleSignInProvider with ChangeNotifier {
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
+
+    // Update SharedPreferences
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', false);
+
     _user = null;
     notifyListeners();
   }

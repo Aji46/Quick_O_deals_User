@@ -4,16 +4,14 @@ import 'package:flutter/material.dart';
 
 import '../../../Model/fetch_data/logined_user.dart';
 
-
 class ProfileDataProvider with ChangeNotifier {
   User? _firebaseUser;
   UserModel? _userModel;
-  var userData;
 
   User? get user => _firebaseUser;
   UserModel? get userModel => _userModel;
 
-  AuthProvider() {
+  ProfileDataProvider() {
     _initUser();
   }
 
