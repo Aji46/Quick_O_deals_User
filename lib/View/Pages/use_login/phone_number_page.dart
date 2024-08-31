@@ -82,12 +82,16 @@ class PhoneNumberPage extends StatelessWidget {
                         SizedBox(
                           height: 40,
                           width: 110,
-                          child: CustomButton(
-                            buttonText: 'Get OTP',
-                            onPressed: () {
-                              provider.signInWithPhoneNumber(context);
-                            },
-                          ),
+                          child: 
+             
+
+                          CustomButton(
+                              buttonText: 'Get OTP',
+                              onPressed: () {
+                                provider.signInWithPhoneNumber(context);
+                              },
+                            ),
+                          
                         ),
                       ],
                     );

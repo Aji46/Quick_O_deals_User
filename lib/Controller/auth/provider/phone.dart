@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:quick_o_deals/Controller/auth/provider/login_.dart';
 import 'package:quick_o_deals/View/Pages/use_login/otp_screen.dart';
 import 'package:quick_o_deals/View/widget/bottom_nav_bar/bottom%20_navigation_bar.dart';
 
@@ -39,14 +41,17 @@ class PhoneNumberProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> _signInWithCredential(PhoneAuthCredential credential, BuildContext context) async {
+  Future<void> _signInWithCredential(
+      PhoneAuthCredential credential, BuildContext context) async {
     try {
-      UserCredential userCredential = await _auth.signInWithCredential(credential);
+      UserCredential userCredential =
+          await _auth.signInWithCredential(credential);
       _user = userCredential.user;
       print("User signed in: ${_user?.uid}");
-  
-      
+
       await _saveUserDataToFirestore();
+
+      Provider.of<logProvider>(context, listen: false).setLoginStatus(true);
 
       // SharedPreferences prefs = await SharedPreferences.getInstance();
       // await prefs.setBool('isLoggedIn', true); // Update login status
@@ -54,9 +59,8 @@ class PhoneNumberProvider extends ChangeNotifier {
       // Notify listeners if necessary
       notifyListeners();
 
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (ctx) => MyHomePage())
-      );
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (ctx) => MyHomePage()));
     } catch (e) {
       print("Error signing in with credential: $e");
     }
@@ -64,13 +68,14 @@ class PhoneNumberProvider extends ChangeNotifier {
 
   Future<void> _saveUserDataToFirestore() async {
     if (_user != null) {
-      final userRef = FirebaseFirestore.instance.collection('users').doc(_user!.uid);
+      final userRef =
+          FirebaseFirestore.instance.collection('users').doc(_user!.uid);
 
       await userRef.set({
         'email': '',
         'phoneNumber': _user!.phoneNumber ?? '',
-        'profilePicture': '', 
-        'username': '', 
+        'profilePicture': '',
+        'username': '',
       }, SetOptions(merge: true));
     }
   }

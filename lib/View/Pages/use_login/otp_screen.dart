@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:quick_o_deals/Controller/auth/provider/login_.dart';
 
 class VerifyOtp extends StatefulWidget {
   final String verificationId;
@@ -28,14 +26,12 @@ class _VerifyOtpState extends State<VerifyOtp> {
             keyboardType: TextInputType.number,
             decoration: InputDecoration(labelText: 'Enter OTP'),
           ),
-          Consumer<logProvider>(
-            builder: (context, value, child) => ElevatedButton(
-              onPressed: () {
-                widget.onCodeEntered(_otpController.text);
-                value.setLoginStatus(true);
-              },
-              child: Text('Verify'),
-            ),
+          ElevatedButton(
+            onPressed: () {
+              widget.onCodeEntered(_otpController.text);
+           
+            },
+            child: Text('Verify'),
           ),
         ],
       ),
