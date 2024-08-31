@@ -24,31 +24,42 @@ class ContactSection extends StatelessWidget {
           endIndent: 20,
           indent: 20,
         ),
-        Row(
+      Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
           children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.3,
-              child: ElevatedButton(
-                onPressed: null, // Makes the button disabled
-                child: Text("+91"),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey, // Set the background color to indicate it's disabled
-                ),
-              ),
+            Padding(
+        padding: const EdgeInsets.only(top: 13.0), 
+        child: ElevatedButton(
+          onPressed: null, 
+          child: const Text(
+            "+91",
+            style: TextStyle(color: Colors.black),
+          ),
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.black, backgroundColor: Colors.white, 
+            minimumSize: Size(50, 55),
+            padding: EdgeInsets.symmetric(horizontal: 16.0), 
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0), // Rounded corners
+              side: BorderSide(color: Colors.black, width: 2), 
             ),
-            Flexible(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.7,
-                child: CustomTextFormField(
-                  controller: provider.phoneNumberController,
-                  labelText: "Phone Number",
-                  keyboardType: TextInputType.phone,
-                  validator: ValidationUtils.validatePhoneNumber,
-                ),
-              ),
+          ),
+        ),
+            ),
+            SizedBox(
+        width: MediaQuery.of(context).size.width * 0.7,
+        child: CustomTextFormField(
+          controller: provider.phoneNumberController,
+          labelText: "Phone Number",
+          keyboardType: TextInputType.phone,
+          validator: ValidationUtils.validatePhoneNumber,
+        ),
             ),
           ],
         ),
+      ),
+
         Row(
           children: [
             Flexible(
@@ -59,6 +70,7 @@ class ContactSection extends StatelessWidget {
                   labelText: "Email",
                   keyboardType: TextInputType.emailAddress,
                   validator: ValidationUtils.validateemail,
+                  
                 ),
               ),
             ),

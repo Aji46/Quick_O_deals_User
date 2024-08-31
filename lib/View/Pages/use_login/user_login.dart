@@ -39,9 +39,13 @@ class UserLogin extends StatelessWidget {
                 emailController: emailController,
                 passwordController: passwordController,
               ),
-              const SizedBox(height: 10,),
-               const LoginButtonsWidget(),
-                const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
+              LoginButtonsWidget(),
+              const SizedBox(
+                height: 10,
+              ),
               SignUpLink(),
             ],
           );

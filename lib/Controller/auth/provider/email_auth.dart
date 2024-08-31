@@ -2,10 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quick_o_deals/Model/auth/auth.dart';
 
-
 class AuthProvider extends ChangeNotifier {
   final AuthRepository authRepository;
-
 
   User? _user;
   User? get user => _user;
@@ -15,7 +13,7 @@ class AuthProvider extends ChangeNotifier {
     authRepository.authStateChanges.listen(_onAuthStateChanged);
   }
 
-  Future<void>signInWithEmailAndPassword(String email, String password) async {
+  Future<void> signInWithEmailAndPassword(String email, String password) async {
     try {
       _user = await authRepository.signInWithEmailAndPassword(email, password);
       notifyListeners();
@@ -24,7 +22,7 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-    Future<void> signOut() async {
+  Future<void> signOut() async {
     await authRepository.signOut();
     _user = null;
     notifyListeners();
@@ -35,15 +33,11 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-    Future<Map<String, dynamic>?> getUserDetails() async {
+  Future<Map<String, dynamic>?> getUserDetails() async {
     if (_user == null) {
       return {}; // or throw an exception
     }
 
-
-   return await authRepository.getUserDetails(_user!.uid);
+    return await authRepository.getUserDetails(_user!.uid);
   }
-
-  
-  
 }

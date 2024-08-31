@@ -30,11 +30,12 @@ class OtpVerificationProvider extends ChangeNotifier {
       _user = userCredential.user;
 
       if (_user != null) {
+       
         // Save user data to Firestore
         await _saveUserDataToFirestore();
 
         // Navigate to the home page or the desired route
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) =>  MyHomePage())); // Replace with your desired route
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) =>  const MyHomePage())); // Replace with your desired route
       }
     } catch (e) {
       print("Error verifying OTP: $e");

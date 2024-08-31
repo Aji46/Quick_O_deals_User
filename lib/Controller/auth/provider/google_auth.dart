@@ -26,6 +26,9 @@ class GoogleSignInProvider with ChangeNotifier {
 
       // Update SharedPreferences
       if (_user != null) {
+             
+
+        
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setBool('isLoggedIn', true);
       }
