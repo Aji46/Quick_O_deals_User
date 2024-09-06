@@ -5,6 +5,7 @@ import 'package:quick_o_deals/Controller/auth/provider/login_.dart';
 import 'package:quick_o_deals/View/Pages/chat/chatpage.dart';
 import 'package:quick_o_deals/View/Pages/favorites/favorite_page.dart';
 import 'package:quick_o_deals/View/Pages/home/home_screen.dart';
+import 'package:quick_o_deals/View/Pages/product_add/product_add.dart';
 import 'package:quick_o_deals/View/Pages/use_login/user_login.dart';
 import 'package:quick_o_deals/View/Pages/user_profile/user_profile.dart';
 
@@ -52,12 +53,18 @@ class _MyHomePageState extends State<MyHomePage> {
               color: _currentIndex == 1 ? Colors.blue : const Color.fromARGB(255, 161, 161, 161),
             ),
             Icon(
+              Icons.add_circle_outline_sharp,
+              color: _currentIndex == 2 ? Colors.blue : const Color.fromARGB(255, 18, 119, 0),
+              size: 31,
+            ),
+
+            Icon(
               Icons.favorite_border,
-              color: _currentIndex == 2 ? Colors.blue : const Color.fromARGB(255, 143, 143, 143),
+              color: _currentIndex == 3 ? Colors.blue : const Color.fromARGB(255, 143, 143, 143),
             ),
             Icon(
               Icons.person,
-              color: _currentIndex == 3 ? Colors.blue : const Color.fromARGB(255, 132, 132, 132),
+              color: _currentIndex == 4 ? Colors.blue : const Color.fromARGB(255, 132, 132, 132),
             ),
           ],
         ),
@@ -72,8 +79,10 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         return ChatPage();
       case 2:
-        return FavoritesPage();
+        return authProvider.isLoggedIn ? ProductAdd() :UserLogin();
       case 3:
+        return FavoritesPage();
+      case 4:
         return authProvider.isLoggedIn ? UserProfile() : UserLogin();
       default:
         return HomeScreen();

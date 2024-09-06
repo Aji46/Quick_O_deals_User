@@ -20,6 +20,7 @@ class PhoneNumberPage extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthProvider(authRepository: AuthRepository())), // Ensure AuthProvider is properly initialized
       ],
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
@@ -45,25 +46,28 @@ class PhoneNumberPage extends StatelessWidget {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            GestureDetector(
-                              onTap: () {
-                                showCountryPicker(
-                                  context: context,
-                                  showPhoneCode: true,
-                                  onSelect: (Country country) {
-                                    provider.updateCountryCode("+${country.phoneCode}");
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 12.0),
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Text(
-                                  provider.selectedCountryCode,
-                                  style: const TextStyle(fontSize: 16),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  showCountryPicker(
+                                    context: context,
+                                    showPhoneCode: true,
+                                    onSelect: (Country country) {
+                                      provider.updateCountryCode("+${country.phoneCode}");
+                                    },
+                                  );
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 12.0),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: Text(
+                                    provider.selectedCountryCode,
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
                                 ),
                               ),
                             ),
