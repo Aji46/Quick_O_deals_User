@@ -13,6 +13,10 @@ class ProductAdd extends StatelessWidget {
       body: SafeArea(
         child: Consumer<ProductProvider>(
           builder: (context, productProvider, child) {
+              if (productProvider.isLoading) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );}else{
             return ListView(
               padding: const EdgeInsets.all(16.0),
               children: [
@@ -100,6 +104,7 @@ class ProductAdd extends StatelessWidget {
 
               ],
             );
+          }
           },
         ),
       ),

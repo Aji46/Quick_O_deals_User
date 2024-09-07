@@ -27,6 +27,10 @@ class ProductProvider with ChangeNotifier {
   // List to store image URLs after upload
   List<String> _imageUrls = [];
 
+  // Loading state
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
   // Select images from gallery
   void selectImages() async {
     final ImagePicker picker = ImagePicker();
@@ -106,12 +110,16 @@ class ProductProvider with ChangeNotifier {
 
   // Save category with product
   Future<void> saveCategoryWithProduct({
-    required context,
+    required BuildContext context,
     required String categoryId,
     required String userId,
     required Product product,
   }) async {
     try {
+      // Set loading state to true
+      _isLoading = true;
+      notifyListeners();
+
       // Store the selected category, product data, and user credentials in Firestore
       await _firestore.collection('user_products').add({
         'categoryId': categoryId,
@@ -123,14 +131,43 @@ class ProductProvider with ChangeNotifier {
         'images': product.images, // Save image URLs
         'timestamp': FieldValue.serverTimestamp(),
       });
-      print("Product saved successfully with category");
-       Navigator.pushAndRemoveUntil(
+
+      // Show a success popup
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Success'),
+          content: Text('Product added successfully!'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+          ],
+        ),
+      );
+
+      // Clear the form fields
+      productNameController.clear();
+      productDetailsController.clear();
+      productPriceController.clear();
+      productAdditionalInfoController.clear();
+      _selectedImages.clear();
+      _imageUrls.clear();
+
+      // Navigate to MyHomePage
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => MyHomePage()),
-        (route) => false,
       );
     } catch (e) {
       print('Error saving product with category: $e');
+    } finally {
+      // Set loading state to false
+      _isLoading = false;
+      notifyListeners();
     }
   }
 }
