@@ -68,6 +68,7 @@ class MyApp extends StatelessWidget {
       ], 
       child: MaterialApp(
         title: 'Quick O Deals',
+          debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,

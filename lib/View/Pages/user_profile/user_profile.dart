@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_o_deals/Controller/auth/provider/email_auth.dart';
+import 'package:quick_o_deals/View/Pages/user_product/user_product.dart';
 import 'package:quick_o_deals/View/widget/bottom_nav_bar/bottom%20_navigation_bar.dart';
 import 'package:quick_o_deals/View/widget/user_profile/circle_avathar.dart';
 import 'package:quick_o_deals/View/widget/user_profile/profile_edite_button.dart';
@@ -63,6 +64,19 @@ class UserProfile extends StatelessWidget {
                     const SizedBox(height: 30),
                     Column(
                       children: [
+
+                         ProfileOption(
+                          icon: Icons.production_quantity_limits_outlined,
+                          title: 'Your products',
+                          onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => UserProduct()),
+                                );
+                          },
+                        ),
+                          const SizedBox(height: 16),
+                       
                         ProfileOption(
                           icon: Icons.settings,
                           title: 'Settings',
