@@ -15,5 +15,5 @@ class UserProductModel {
         .collection('user_products')
         .doc(productId)
         .delete();
-  }
+  } 
 }
