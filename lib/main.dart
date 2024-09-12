@@ -59,8 +59,9 @@ class MyApp extends StatelessWidget {
   ChangeNotifierProvider(create: (_) => TextFieldProvider()),
   ChangeNotifierProvider(create: (_) => ProductProvider()),
   ChangeNotifierProvider(create: (context) => CategoryProvider()),
-     ChangeNotifierProvider(create: (_) => LikedHiveProvider()),
-        ChangeNotifierProvider(create: (_) => User_ProductController()),
+  ChangeNotifierProvider(create: (_) => LikedHiveProvider()),
+  ChangeNotifierProvider(create: (_) => User_ProductController()),
+      
       
   
     

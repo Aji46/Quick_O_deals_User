@@ -1,15 +1,17 @@
 // category_list_view.dart
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class CategoryListView extends StatelessWidget {
+  const CategoryListView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection('category').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
 
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
@@ -36,12 +38,12 @@ class CategoryListView extends StatelessWidget {
                       radius: 30,
                       backgroundImage: imageUrl != null
                           ? NetworkImage(imageUrl)
-                          : AssetImage('assets/placeholder.png') as ImageProvider, // Placeholder
+                          : const AssetImage('assets/placeholder.png') as ImageProvider, 
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       categoryName,
-                      style: TextStyle(fontSize: 12),
+                      style: const TextStyle(fontSize: 12),
                     ),
                   ],
                 ),

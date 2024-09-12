@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quick_o_deals/Controller/auth/provider/loding_provider.dart';
 import 'package:quick_o_deals/Controller/auth/provider/users_product_edite.dart';
 
 class ProductEditPage extends StatelessWidget {
@@ -95,26 +96,30 @@ class ProductEditPage extends StatelessWidget {
                 child: const Text('Pick New Images'),
               ),
               SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  // Fetch the selected images from the controller
-                  final controller = Provider.of<User_ProductController>(context,
-                      listen: false);
-
-                  // Pass the new images along with the product details to update the product
-                  controller.updateProduct(
-                    context: context,
-                    productId: product.id,
-                    name: productNameController.text,
-                    price: productPriceController.text,
-                    details: productDetailsController.text,
-                    newImages:
-                        controller.selectedImages, // New images to be passed
-                  );
-
-                  Navigator.of(context).pop();
+              Consumer<LoadingProvider>(
+                builder: (context, loadingProvider, child) {
+                  return loadingProvider.isLoading
+                      ? Center(child: CircularProgressIndicator())
+                      : ElevatedButton(
+                          onPressed: () {
+                            // Fetch the selected images from the controller
+                            final controller = Provider.of<User_ProductController>(
+                                context,
+                                listen: false);
+                                    
+                            controller.updateProduct(
+                              context: context,
+                              productId: product.id,
+                              name: productNameController.text,
+                              price: productPriceController.text,
+                              details: productDetailsController.text,
+                              newImages: controller.selectedImages, 
+                              // onSuccess: () { Navigator.of(context).pop(); }, 
+                            );
+                          },
+                          child: const Text('Save Changes'),
+                        );
                 },
-                child: const Text('Save Changes'),
               ),
             ],
           ),

@@ -16,7 +16,7 @@ class User_ProductController extends ChangeNotifier {
       for (var pickedFile in pickedFiles) {
         selectedImages.add(File(pickedFile.path));
       }
-      notifyListeners();  // Notify listeners to update the UI
+      notifyListeners(); // Notify listeners to update the UI
     }
   }
 
@@ -27,14 +27,17 @@ class User_ProductController extends ChangeNotifier {
     required String price,
     required String details,
     required List<File> newImages,
+    //required Null Function() onSuccess,
   }) async {
-    // Show progress indicator while uploading
+    // Show circular progress indicator
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => const Center(
-        child: CircularProgressIndicator(),
-      ),
+      builder: (BuildContext context) {
+        return Center(
+          child: CircularProgressIndicator(), // Circular progress indicator
+        );
+      },
     );
 
     try {
@@ -52,20 +55,21 @@ class User_ProductController extends ChangeNotifier {
       }
 
       // Update Firestore document with new image URLs
-      await FirebaseFirestore.instance.collection('user_products').doc(productId).update({
+      await FirebaseFirestore.instance
+          .collection('user_products')
+          .doc(productId)
+          .update({
         'productName': name,
         'productPrice': price,
         'productDetails': details,
         'images': imageUrls, // or merge with existing images
       });
 
-
-      // Dismiss the progress indicator
-      Navigator.of(context).pop();
-
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Product updated successfully!')),
       );
+      Navigator.pop(context);
+      Navigator.pop(context);
     } catch (error) {
       // Dismiss the progress indicator if there's an error
       Navigator.of(context).pop();
