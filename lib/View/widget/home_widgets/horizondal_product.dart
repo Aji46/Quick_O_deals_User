@@ -149,7 +149,7 @@ class HorizontalProductList extends StatelessWidget {
               String productDetails = productData['productDetails'];
               String productAdditionalInfo = productData['productAdditionalInfo'];
               List<dynamic> images = productData['images'];
-              String imageUrl = images.isNotEmpty ? images[0] : 'assets/placeholder.png';
+              String imageUrl = images.isNotEmpty ? images[0] : 'assets/placeholder.jpeg';
 
               return Consumer<LikedHiveProvider>(
                 builder: (context, likedProductsProvider, child) {

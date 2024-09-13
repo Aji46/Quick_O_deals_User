@@ -1,6 +1,7 @@
 // category_list_view.dart
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:quick_o_deals/View/Pages/category/catogery_poduct_list.dart';
 
 class CategoryListView extends StatelessWidget {
   const CategoryListView({super.key});
@@ -32,21 +33,34 @@ class CategoryListView extends StatelessWidget {
 
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundImage: imageUrl != null
-                          ? NetworkImage(imageUrl)
-                          : const AssetImage('assets/placeholder.png') as ImageProvider, 
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      categoryName,
-                      style: const TextStyle(fontSize: 12),
-                    ),
-                  ],
-                ),
+                child:Column(
+  children: [
+    GestureDetector(
+      onTap: () {
+          Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CategoryProductList(categoryId: categoryName,
+             
+            ),
+          ),
+        );
+      },
+      child: CircleAvatar(
+        radius: 30,
+        backgroundImage: imageUrl != null
+            ? NetworkImage(imageUrl)
+            : const AssetImage('assets/placeholder.png') as ImageProvider,
+      ),
+    ),
+    const SizedBox(height: 8),
+    Text(
+      categoryName,
+      style: const TextStyle(fontSize: 12),
+    ),
+  ],
+)
+
               );
             },
           ),
