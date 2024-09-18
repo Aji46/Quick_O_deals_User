@@ -1,20 +1,11 @@
 class CategoryModel {
+  final String id;
   final String name;
-  final String imageUrl;
+  final String image;
 
-  CategoryModel({required this.name, required this.imageUrl});
-
-  // Convert a JSON map to a CategoryModel instance
-  factory CategoryModel.fromJson(Map<String, dynamic> json) {
-    return CategoryModel(
-      name: json['name'] ,
-      imageUrl: json['image'] ,
-    );
-  }
-
-  // Convert a CategoryModel instance to a JSON map
-  Map<String, dynamic> toJson() => {
-        'name': name,
-        'imageUrl': imageUrl,
-      };
+  CategoryModel({
+    required this.id,
+    required this.name,
+    required this.image,
+  });
 }

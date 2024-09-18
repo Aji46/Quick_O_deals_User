@@ -66,13 +66,22 @@ class AdSectionPage extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     height: 200,
-                    decoration: BoxDecoration(
+                    child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: imageUrl.startsWith('http')
-                            ? NetworkImage(imageUrl)
-                            : AssetImage(imageUrl) as ImageProvider,
+                      child: FadeInImage.assetNetwork(
+                        placeholder: 'assets/placeholder.png', 
+                        image: imageUrl,
                         fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: 200,
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            'assets/placeholder.png',
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: 200,
+                          );
+                        },
                       ),
                     ),
                   ),

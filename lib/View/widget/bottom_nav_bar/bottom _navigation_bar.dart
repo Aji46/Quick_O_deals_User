@@ -21,13 +21,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-   //  final authProvider = Provider.of<logProvider>(context);
-
     return Consumer<logProvider>(
-      builder: (context, value, child) => 
-       Scaffold(
+      builder: (context, value, child) => Scaffold(
         body: _getPageForIndex(_currentIndex, value),
-      bottomNavigationBar: DotCurvedBottomNav(
+        bottomNavigationBar: DotCurvedBottomNav(
           scrollController: ScrollController(),
           hideOnScroll: true,
           indicatorColor: Colors.blue,
@@ -46,25 +43,42 @@ class _MyHomePageState extends State<MyHomePage> {
           items: [
             Icon(
               Icons.home,
-              color: _currentIndex == 0 ? Colors.blue : const Color.fromARGB(255, 136, 136, 136),
+              color: _currentIndex == 0
+                  ? Colors.blue
+                  : const Color.fromARGB(255, 136, 136, 136),
             ),
             Icon(
               Icons.chat,
-              color: _currentIndex == 1 ? Colors.blue : const Color.fromARGB(255, 161, 161, 161),
+              color: _currentIndex == 1
+                  ? Colors.blue
+                  : const Color.fromARGB(255, 161, 161, 161),
             ),
-            Icon(
-              Icons.add_circle_outline_sharp,
-              color: _currentIndex == 2 ? Colors.blue : const Color.fromARGB(255, 18, 119, 0),
-              size: 31,
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  _currentIndex = 2;
+                });
+              },
+              child: SizedBox(
+                width: 30,
+                height: 30,
+                child: Image.asset(
+                  'assets/add icon.png',
+                  
+                ),
+              ),
             ),
-
             Icon(
               Icons.favorite_border,
-              color: _currentIndex == 3 ? Colors.blue : const Color.fromARGB(255, 143, 143, 143),
+              color: _currentIndex == 3
+                  ? Colors.blue
+                  : const Color.fromARGB(255, 143, 143, 143),
             ),
             Icon(
               Icons.person,
-              color: _currentIndex == 4 ? Colors.blue : const Color.fromARGB(255, 132, 132, 132),
+              color: _currentIndex == 4
+                  ? Colors.blue
+                  : const Color.fromARGB(255, 132, 132, 132),
             ),
           ],
         ),
@@ -79,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         return ChatPage();
       case 2:
-        return authProvider.isLoggedIn ? ProductAdd() :UserLogin();
+        return authProvider.isLoggedIn ? ProductAdd() : UserLogin();
       case 3:
         return FavoritesPage();
       case 4:

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_o_deals/Controller/Provider/like_button.dart';
-import 'package:quick_o_deals/View/widget/home_widgets/ad_section_page.dart'; // Import the new page
+import 'package:quick_o_deals/View/widget/home_widgets/ad_section_page.dart';
 import 'package:quick_o_deals/View/widget/home_widgets/category_layout.dart';
 import 'package:quick_o_deals/View/widget/home_widgets/horizondal_product.dart';
 
@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
                   _sectionTitle('Featured'),
                   HorizontalProductList(),
                   const SizedBox(height: 20),
-                  AdSectionPage(), // Use the new page here
+                  AdSectionPage(),
                   const SizedBox(height: 20),
                   _sectionTitle('Most Viewed'),
                   HorizontalProductList(),

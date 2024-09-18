@@ -27,9 +27,7 @@ class User_ProductController extends ChangeNotifier {
     required String price,
     required String details,
     required List<File> newImages,
-    //required Null Function() onSuccess,
   }) async {
-    // Show circular progress indicator
     showDialog(
       context: context,
       barrierDismissible: false,

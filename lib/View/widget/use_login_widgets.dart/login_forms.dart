@@ -64,8 +64,8 @@ class LoginForm extends StatelessWidget {
 
                               if (authProvider.user != null) {
                                 SharedPreferences prefs = await SharedPreferences.getInstance();
-                                // await prefs.setString('userEmail', emailController.text);
-                                // await prefs.setBool('isLoggedIn', true);
+                                await prefs.setString('userEmail', emailController.text);
+                                await prefs.setBool('isLoggedIn', true);
                                 pref.setLoginStatus(true);
 
                                 Navigator.pushReplacement(

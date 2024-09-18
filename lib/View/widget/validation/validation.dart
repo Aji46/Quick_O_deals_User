@@ -54,4 +54,52 @@ static String? validatePhoneNumber(String? value) {
     return null;
   }
 
+// Product Name Validation - No spaces or symbols allowed
+static String? validateProductName(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Product name is required';
+  } else if (value.length < 3) {
+    return 'Product name must be at least 3 characters long';
+  } else if (RegExp(r'[^\w]').hasMatch(value)) {
+    return 'Product name cannot contain spaces or symbols';
+  }
+  return null;
+}
+
+// Product Details Validation - No symbols allowed, but spaces are allowed
+static String? validateProductDetails(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Product details are required';
+  } else if (value.length < 10) {
+    return 'Product details must be at least 10 characters long';
+  } else if (RegExp(r'[^\w\s]').hasMatch(value)) {
+    return 'Product details cannot contain symbols';
+  }
+  return null;
+}
+
+// Product Price Validation - Must be a valid number, no spaces or symbols allowed except decimal point
+static String? validateProductPrice(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Product price is required';
+  } else if (double.tryParse(value) == null || double.parse(value) <= 0) {
+    return 'Please enter a valid positive price';
+  } else if (RegExp(r'[^\d.]').hasMatch(value)) {
+    return 'Product price cannot contain spaces or symbols';
+  }
+  return null;
+}
+
+// Additional Information Validation - No symbols allowed, but spaces are allowed
+static String? validateAdditionalInfo(String? value) {
+  if (value != null && value.length > 200) {
+    return 'Additional information should be less than 200 characters';
+  } else if (value != null && RegExp(r'[^\w\s]').hasMatch(value)) {
+    return 'Additional information cannot contain symbols';
+  }
+  return null;
+}
+
+
+
 }

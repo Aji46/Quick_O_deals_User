@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:quick_o_deals/Model/user_product/user_product.dart';
 
 class UserProductController extends ChangeNotifier {
-  UserProductModel _productModel;
+  final UserProductModel _productModel;
 
   UserProductController(this._productModel);
 

@@ -28,9 +28,9 @@ class CustomTextFormField extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double paddingValue = screenWidth > 600 ? 50 : 30;
 
-    return ChangeNotifierProvider(
-      create: (_) => TextFieldProvider(),
-      child: Consumer<TextFieldProvider>(
+
+     
+      return  Consumer<TextFieldProvider>(
         builder: (context, provider, child) {
           return Padding(
             padding: EdgeInsets.only(top: 20, right: paddingValue, left: paddingValue),
@@ -71,7 +71,7 @@ class CustomTextFormField extends StatelessWidget {
             ),
           );
         },
-      ),
-    );
+      );
+    
   }
 }

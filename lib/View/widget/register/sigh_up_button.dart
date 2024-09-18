@@ -37,7 +37,7 @@ class SignUpButton extends StatelessWidget {
                     const SnackBar(content: Text('User registered successfully')),
                   );
                   // ignore: use_build_context_synchronously
-                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => const MyHomePage()));
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) => const MyHomePage()));
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Error: $e')),

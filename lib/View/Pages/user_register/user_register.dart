@@ -30,7 +30,7 @@ class _UserRegisterState extends State<UserRegister> {
         builder: (context, googleSignInProvider, termsProvider, child) {
           if (googleSignInProvider.user != null) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              Navigator.pushReplacementNamed(context, '/home');
+
             });
           }
 

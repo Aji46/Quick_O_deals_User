@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:quick_o_deals/Controller/Provider/category_provider.dart';
 import 'package:quick_o_deals/Controller/Provider/like_button.dart';
 import 'package:quick_o_deals/Controller/Provider/profile_image_check.dart';
 import 'package:quick_o_deals/Controller/auth/provider/email_auth.dart';
@@ -58,10 +57,12 @@ class MyApp extends StatelessWidget {
   ChangeNotifierProvider(create: (_) => ImageEditProvider()),
   ChangeNotifierProvider(create: (_) => TextFieldProvider()),
   ChangeNotifierProvider(create: (_) => ProductProvider()),
-  ChangeNotifierProvider(create: (context) => CategoryProvider()),
+  // ChangeNotifierProvider(create: (context) => CategoryProvider()),
   ChangeNotifierProvider(create: (_) => LikedHiveProvider()),
   ChangeNotifierProvider(create: (_) => User_ProductController()),
-      
+ 
+
+ 
       
   
     
