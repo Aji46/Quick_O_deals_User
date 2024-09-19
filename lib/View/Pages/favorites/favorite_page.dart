@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_o_deals/Controller/Provider/like_button.dart';
+import 'package:quick_o_deals/View/Pages/product_detailes/product_detailes.dart';
 import 'package:shimmer/shimmer.dart';
 
 class FavoritesPage extends StatelessWidget {
@@ -24,7 +25,7 @@ class FavoritesPage extends StatelessWidget {
             itemCount: likedProducts.length,
             itemBuilder: (context, index) {
               final productId = likedProducts[index];
-
+                  
               return FutureBuilder<DocumentSnapshot>(
                 future: FirebaseFirestore.instance
                     .collection('user_products')
@@ -65,6 +66,7 @@ class FavoritesPage extends StatelessWidget {
                   }
 
                   final productData = snapshot.data!.data() as Map<String, dynamic>;
+
                   String productName = productData['productName'] ?? 'Unnamed product';
                   String productPrice = productData['productPrice'] ?? 'N/A';
                   List<dynamic> images = productData['images'] ?? [];
@@ -72,18 +74,28 @@ class FavoritesPage extends StatelessWidget {
 
                   bool isLiked = likedProductsProvider.isProductLiked(productId);
 
-                  return ListTile(
-                    leading: Image.network(imageUrl, width: 50, height: 50, fit: BoxFit.cover),
-                    title: Text(productName),
-                    subtitle: Text('Rs $productPrice'),
-                    trailing: IconButton(
-                      icon: Icon(
-                        isLiked ? Icons.favorite : Icons.favorite_border,
-                        color: isLiked ? Colors.red : Colors.grey,
+                  return GestureDetector(
+                      onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductDetailsPage(productId: productId),
+                    ),
+                  );
+                },
+                    child: ListTile(
+                      leading: Image.network(imageUrl, width: 50, height: 50, fit: BoxFit.cover),
+                      title: Text(productName),
+                      subtitle: Text('Rs $productPrice'),
+                      trailing: IconButton(
+                        icon: Icon(
+                          isLiked ? Icons.favorite : Icons.favorite_border,
+                          color: isLiked ? Colors.red : Colors.grey,
+                        ),
+                        onPressed: () {
+                          likedProductsProvider.toggleLike(productId);
+                        },
                       ),
-                      onPressed: () {
-                        likedProductsProvider.toggleLike(productId);
-                      },
                     ),
                   );
                 },

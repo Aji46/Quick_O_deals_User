@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_o_deals/Controller/Provider/like_button.dart';
 import 'package:quick_o_deals/Controller/Provider/profile_image_check.dart';
+import 'package:quick_o_deals/Controller/auth/provider/Serach_provider.dart';
 import 'package:quick_o_deals/Controller/auth/provider/email_auth.dart';
 import 'package:quick_o_deals/Controller/auth/provider/google_auth.dart';
 import 'package:quick_o_deals/Controller/auth/provider/loding_provider.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
   // ChangeNotifierProvider(create: (context) => CategoryProvider()),
   ChangeNotifierProvider(create: (_) => LikedHiveProvider()),
   ChangeNotifierProvider(create: (_) => User_ProductController()),
+   ChangeNotifierProvider(create: (_) => ProductSearchProvider()..fetchProducts()), 
  
 
  
@@ -78,7 +80,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: MyHomePage(),
+        home: const MyHomePage(),
       ),
        );
   }
